@@ -1,0 +1,37 @@
+.card-input {
+  display: flex;
+  border-radius: $border-radius;
+  padding: 10px;
+  align-items: center;
+  background-color: #fff;
+  margin-bottom: 5px;
+  border: 1px solid $primary;
+
+  &__count {
+    border-radius: 50%;
+    background-color: #fff;
+    font-weight: 600;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $primary;
+    background-color: $warning;
+  }
+
+  &__name {
+    width: 100%;
+    white-space: nowrap;
+    padding: 0 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1rem;
+  }
+
+  .btn {
+    width: 31px;
+    flex-shrink: 0;
+  }
+}

@@ -1,0 +1,25 @@
+.header-app{
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  &__item{
+    height: 56px;
+    width: 100%;
+
+    &--left{
+      background-color: $primary;
+    }
+    &--right{
+      background-color: $primary;
+    }
+  }
+
+  &__logo{
+    position: absolute;
+    width: 224px;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
