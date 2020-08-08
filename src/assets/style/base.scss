@@ -51,6 +51,7 @@
 @import "components/project/empty-result";
 @import "components/project/card-grid";
 @import "components/project/card-input";
+@import "components/project/deck";
 
 // LAYOUT
 
@@ -64,3 +65,7 @@
 
 // NOTIFICATIONS
 @import "notifications/toastify";
+
+// VIEWS
+
+@import "views/deck-details";

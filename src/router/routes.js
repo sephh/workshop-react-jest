@@ -1,6 +1,7 @@
 import {lazy} from 'react';
 
 const DeckAddView = lazy(() => import('../views/DeckAddView'));
+const DeckEditView = lazy(() => import('../views/DeckEditView'));
 const DeckDetailsView = lazy(() => import('../views/DeckDetailsView'));
 const DeckListView = lazy(() => import('../views/DeckListView'));
 
@@ -11,7 +12,12 @@ const routes = () => [
         exact: true
     },
     {
-        path: '/deck/details',
+        path: '/deck/edit/:id',
+        component: DeckEditView,
+        exact: true
+    },
+    {
+        path: '/deck/details/:id',
         component: DeckDetailsView,
         exact: true
     },

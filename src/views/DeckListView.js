@@ -1,31 +1,26 @@
-import React, {useCallback, useEffect} from 'react';
-import {useDispatch} from "react-redux";
+import React, {useMemo, useState} from 'react';
+import {useSelector} from "react-redux";
 
 import View from "../layout/View";
 import Wrapper from "../layout/Wrapper";
 import SearchBar from "../components/SearchBar";
 
-import cardStore from '../store/card.store';
+import deckStore from '../store/deck.store';
+import scoredSearch from "../filters/scored-search";
+import DeckGrid from "../components/DeckGrid";
 
 const DeckListView = ({history}) => {
-    const dispatch = useDispatch();
-
-    const fetchCards = useCallback((query) => {
-        const {getCards} = cardStore.actions;
-        dispatch(getCards({query}));
-    }, [dispatch])
+    const decks = useSelector(deckStore.selectors.decks);
+    const [query, setQuery] = useState('');
+    const filteredDecks = useMemo(() => scoredSearch(decks, query, 'name', 20), [decks, query]);
 
     const addDeck = () => {
         history.push('/deck/new');
     }
 
     const search = ({target}) => {
-        fetchCards(target.value);
+        setQuery(target.value);
     }
-
-    useEffect(()=>{
-        fetchCards();
-    }, [fetchCards])
 
     return (
         <Wrapper>
@@ -35,6 +30,14 @@ const DeckListView = ({history}) => {
                     onButtonClick={addDeck}
                     onChange={search}
                 />
+
+                <div className='row'>
+                    <div className='col-md-12'>
+                        <DeckGrid
+                            decks={filteredDecks}
+                        />
+                    </div>
+                </div>
             </View>
         </Wrapper>
     );

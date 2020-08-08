@@ -35,16 +35,18 @@ const DeckForm = () => {
             </div>
 
             <div className='col-md-12'>
-                {
-                    deckCards.map((card) =>
-                        <CardInput
-                            key={card.id}
-                            onAdd={() => addCard(card)}
-                            onRemove={() => removeCard(card)}
-                            card={card}
-                        />
-                    )
-                }
+                <div className='sticky-top'>
+                    {
+                        deckCards.map((card) =>
+                            <CardInput
+                                key={card.id}
+                                onAdd={() => addCard(card)}
+                                onRemove={() => removeCard(card)}
+                                card={card}
+                            />
+                        )
+                    }
+                </div>
             </div>
         </div>
     );

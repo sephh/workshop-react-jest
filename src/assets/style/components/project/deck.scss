@@ -1,0 +1,28 @@
+.deck {
+  position: relative;
+
+  &__name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 15px 10px;
+    text-align: center;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 1;
+    width: 100%;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__controllers {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 1;
+  }
+}
