@@ -16,9 +16,9 @@ const PokemonCard = ({id, name, imageUrl, onClick}) => {
 };
 
 PokemonCard.propTypes = {
-    id: PropTypes.string,
-    name: PropTypes.string,
-    imageURL: PropTypes.string,
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    imageURL: PropTypes.string.isRequired,
     onClick: PropTypes.func,
 };
 

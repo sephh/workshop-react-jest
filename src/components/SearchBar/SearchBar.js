@@ -46,6 +46,7 @@ SearchBar.propTypes = {
 
 SearchBar.defaultProps = {
     placeholder: 'Pesquise...',
+    buttonLabel: 'Botão',
     inputDelay: 200,
     onChange: () => {
     },

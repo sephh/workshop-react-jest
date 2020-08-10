@@ -1,90 +1,99 @@
-# Component Render
+# Eventos do Usuário
 
-Vamos começar pelo tipo de teste mais simples, a rederização correta de um componente.
+Vamos testar agora a interação do usuário com o component.
 
-Vá para a pasta `src/components/EmptyResult`;
-
-Crie um pasta `__test__`, vamos usar esse tipo de padrão para agrupar os testes.
-
-E por fim crie o teste `EmptyResult.test.js`:
+Primeiro vamos fazer um teste com um evento simples de click no component `PokemonCard`;
 
 ```
 import React from "react";
 import {render} from "@testing-library/react";
-import EmptyResult from "../EmptyResult";
 
-describe('EmptyResult', () => {
-    test('should render with default props', () => {
-        const {container, getByAltText, getByText} = render(<EmptyResult/>);
-        const defaultMessage = 'Oops... Não encontramos nada.';
-        const defaultWidth = 200;
+import PokemonCard from "../PokemonCard";
+import {cardBuilder} from "../../../__mocks__/card-builder";
 
-        const image = getByAltText(/empty result/i);
+describe('PokemonCard', () => {
+    let card;
+
+    beforeEach(() => {
+        card = cardBuilder();
+    });
+
+    test('should render with default props', ()=>{
+        const {container, getByAltText} = render(<PokemonCard {...card}/>);
+        const imageAlt = `${card.id}-${card.name}`;
+
+        const image = getByAltText(imageAlt);
 
         expect(container).toBeInTheDocument();
-        expect(image).toBeInTheDocument();
-        expect(getByText(defaultMessage)).toBeInTheDocument();
-        expect(image.width).toBe(defaultWidth);
+        expect(image.src).toBe(card.imageUrl);
+        expect(image.alt).toBe(imageAlt);
     });
 
-    test('should render with message', () => {
-        const message = 'Mensagem de teste.'
+    test('should emit event onClick', () => {
+        const onClick = jest.fn();
+        const {getByAltText} = render(<PokemonCard {...card} onClick={onClick}/>);
+        const imageAlt = `${card.id}-${card.name}`;
 
-        const {getByText} = render(<EmptyResult message={message}/>);
+        const image = getByAltText(imageAlt);
+        image.click();
 
-        expect(getByText(message)).toBeInTheDocument();
-    });
-
-    test('image should have correct width', () => {
-        const width = 300;
-
-        const {getByAltText} = render(<EmptyResult width={width}/>);
-        const image = getByAltText(/empty result/i);
-
-        expect(image.width).toBe(width);
+        expect(onClick).toHaveBeenCalledTimes(1);
     });
 });
 ```
 
-#### Mudança de prop
+#### fireEvent
 
-Para exemplificar a mudança de uma prop num component, vamos testar o `PokeballLoading`
+O `fireEvent` é uma feature do `@testing-library/react` que nos auxilia nos testes de evento mais complexo.
+
+Vamos testar o component `SearchBar` para exemplificar.
 
 ```
 import React from "react";
-import {render} from "@testing-library/react";
-import PokeballLoading from "../PokeballLoading";
+import {fireEvent, render} from "@testing-library/react";
+import SearchBar from "../SearchBar";
 
-describe('PokeballLoading', () => {
-    test('should render with default props', ()=>{
-        const {container, getByAltText} = render(<PokeballLoading/>);
+const setup = (props = {}) => {
+    const renderResult = render(<SearchBar {...props}/>);
 
-        const image = getByAltText(/Pokeball Loading/i);
+    return {
+        input: renderResult.getByPlaceholderText('Pesquise...'),
+        button: renderResult.getByText('Botão'),
+        defaultInputDelay: 200,
+        ...renderResult
+    };
+};
+
+jest.useFakeTimers();
+
+describe('SearchBar', () => {
+    test('should render with default props', () => {
+        const {container, input, button} = setup();
 
         expect(container).toBeInTheDocument();
-        expect(image).toBeInTheDocument();
-        expect(image.width).toBe(200);
+        expect(input).toBeInTheDocument();
+        expect(button).toBeInTheDocument();
     });
 
-    test('message should change', () => {
-        const {queryByText, rerender} = render(<PokeballLoading/>);
-        const message = 'Nova mensagem';
+    test('input should emit onChange event', () => {
+        const onChange = jest.fn();
+        const {input, defaultInputDelay} = setup({onChange});
 
-        expect(queryByText(message)).not.toBeInTheDocument();
+        fireEvent.change(input, {target: {value: 'Picles'}});
 
-        rerender(<PokeballLoading message={message}/>);
+        jest.runTimersToTime(defaultInputDelay);
 
-        expect(queryByText(message)).toBeInTheDocument();
+        expect(onChange).toHaveBeenCalled();
+        expect(onChange).toHaveBeenCalledWith({target: input});
     });
 
-    test('image should have correct size', () => {
-        const size = 100;
-        const {getByAltText} = render(<PokeballLoading size={size}/>);
+    test('button should emit onButtonClick event', () => {
+        const onButtonClick = jest.fn();
+        const {button} = setup({onButtonClick});
 
-        const image = getByAltText(/Pokeball Loading/i);
+        button.click();
 
-        expect(image.width).toBe(size);
-        expect(image.height).toBe(size);
+        expect(onButtonClick).toHaveBeenCalledTimes(1);
     });
 });
 ```

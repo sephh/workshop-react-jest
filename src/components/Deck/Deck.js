@@ -23,6 +23,7 @@ const Deck = ({id, name, onClick, onRemove, onEdit}) => {
             <div className='deck__controllers'>
                 <button
                     className='btn btn-sm btn-light mr-2'
+                    title='Remover'
                     onClick={onRemove}
                 >
                     <span className="far fa-trash-alt text-danger"/>
@@ -30,6 +31,7 @@ const Deck = ({id, name, onClick, onRemove, onEdit}) => {
 
                 <button
                     className='btn btn-sm btn-light'
+                    title='Editar'
                     onClick={onEdit}
                 >
                     <span className="fas fa-pencil-alt text-primary"/>
