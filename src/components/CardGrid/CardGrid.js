@@ -4,10 +4,10 @@ import PokeballLoading from "../PokeballLoading.js";
 import EmptyResult from "../EmptyResult/EmptyResult";
 import PokemonCard from "../PokemonCard/PokemonCard";
 import DeckForm from "../DeckForm";
-import {DeckContext} from "../../providers/DeckProvider";
+import {DeckFormContext} from "../../providers/DeckFormProvider";
 
 const CardGrid = ({cards, loading}) => {
-    const {addCard} = useContext(DeckContext);
+    const {addCard} = useContext(DeckFormContext);
 
     const renderHandle = () => {
         const noCards = !cards || !cards.length;

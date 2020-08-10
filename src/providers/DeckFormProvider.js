@@ -6,9 +6,9 @@ import errorHandler from "../utils/error-handler";
 import successHandler from "../utils/sucess-handler";
 import deckStore from '../store/deck.store';
 
-export const DeckContext = createContext({});
+export const DeckFormContext = createContext({});
 
-const DeckProvider = ({children, history, match}) => {
+const DeckFormProvider = ({children, history, match}) => {
     const dispatch = useDispatch();
     const deck = useSelector((state) => deckStore.selectors.decks(state).find(d => d.id === match?.params?.id));
 
@@ -103,7 +103,7 @@ const DeckProvider = ({children, history, match}) => {
     }, [deck]);
 
     return (
-        <DeckContext.Provider
+        <DeckFormContext.Provider
             value={{
                 deckName,
                 deckCards,
@@ -115,8 +115,8 @@ const DeckProvider = ({children, history, match}) => {
             }}
         >
             {children}
-        </DeckContext.Provider>
+        </DeckFormContext.Provider>
     );
 }
 
-export default withRouter(DeckProvider);
+export default withRouter(DeckFormProvider);

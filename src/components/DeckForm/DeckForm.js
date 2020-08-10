@@ -1,10 +1,10 @@
 import React, {useContext, useState,} from 'react';
 import cx from 'classnames';
-import {DeckContext} from "../../providers/DeckProvider";
+import {DeckFormContext} from "../../providers/DeckFormProvider";
 import CardInput from "../CardInput";
 
 const DeckForm = () => {
-    const {submitted, deckName, deckCards, updateDeckName, addCard, removeCard} = useContext(DeckContext);
+    const {submitted, deckName, deckCards, updateDeckName, addCard, removeCard} = useContext(DeckFormContext);
 
     const [validated, setValidated] = useState(false);
 

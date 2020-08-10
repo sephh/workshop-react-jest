@@ -7,7 +7,7 @@ import SearchBar from "../components/SearchBar";
 
 import cardStore from '../store/card.store';
 import CardGrid from "../components/CardGrid";
-import DeckProvider, {DeckContext} from "../providers/DeckProvider";
+import DeckProvider, {DeckFormContext} from "../providers/DeckFormProvider";
 
 const DeckAddView = ({history}) => {
     const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const DeckAddView = ({history}) => {
             <View>
 
                 <DeckProvider>
-                    <DeckContext.Consumer>
+                    <DeckFormContext.Consumer>
                         {
                             ({saveDeck}) => <SearchBar
                                 buttonLabel={'Salvar Baralho'}
@@ -40,7 +40,7 @@ const DeckAddView = ({history}) => {
                                 onChange={search}
                             />
                         }
-                    </DeckContext.Consumer>
+                    </DeckFormContext.Consumer>
 
 
                     <CardGrid
