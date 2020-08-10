@@ -1,17 +1,14 @@
-import React, {useCallback} from 'react';
+import React, {useMemo} from 'react';
 import PropTypes from 'prop-types';
 
 import pokeball from './pokeball.gif';
 
 const PokeballLoading = ({message = '', size = 200}) => {
-    const handleMessage = useCallback(
-        () => message
-            ? (<span className="pokeball-loading__message text-primary">
+    const handleMessage = () => message
+        ? (<span className="pokeball-loading__message text-primary">
                 {message}
             </span>)
-            : null,
-        [message]
-    );
+        : null;
 
     return (
         <div className="pokeball-loading">
