@@ -1,28 +1,20 @@
 import React from "react";
 import {fireEvent, render, wait} from "@testing-library/react";
 import {Provider} from "react-redux";
-import {applyMiddleware, combineReducers, createStore} from "redux";
 import {MemoryRouter, Route} from "react-router-dom";
-import thunk from "redux-thunk";
 import axiosMock from '../../__mocks__/axios-mock';
 
 import DeckAddView from "../DeckAddView";
 import cardStore from "../../store/card.store";
-import deckStore from "../../store/deck.store";
 import {pikachuMock, squirtleMock} from "../../__mocks__/card-builder";
+import {storeBuilder} from "../../__mocks__/store-builder";
 
 jest.useFakeTimers();
 
 const setup = () => {
     jest.clearAllMocks();
 
-    const store = createStore(
-        combineReducers({
-            card: cardStore.reducer,
-            deck: deckStore.reducer
-        }),
-        applyMiddleware(thunk)
-    );
+    const store = storeBuilder();
 
     const renderResult = render(<Provider store={store}>
         <MemoryRouter>
