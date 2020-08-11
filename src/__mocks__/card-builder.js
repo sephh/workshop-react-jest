@@ -11,3 +11,8 @@ export const cardBuilder = (props = {}) => {
         ...props
     };
 };
+
+export const pikachuMock = cardBuilder();
+export const squirtleMock = cardBuilder({name: 'Squirtle', types: ['Water']});
+export const bulbasaurMock = cardBuilder({name: 'Bulbasaur', types: ['Grass']});
+export const charmanderMock = cardBuilder({name: 'Charmander', types: ['Fire']});

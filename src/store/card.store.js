@@ -93,7 +93,9 @@ const actions = {
         }
     },
 
-    setLoading
+    setLoading,
+    setPage,
+    setQuery,
 
 };
 
