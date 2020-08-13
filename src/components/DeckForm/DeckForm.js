@@ -10,15 +10,18 @@ const DeckForm = () => {
 
     const setName = ({target: {value}}) => {
         updateDeckName(value);
-        setValidated( true);
+        setValidated(true);
     }
 
     return (
         <div className='row'>
             <div className='col-md-12'>
-                <div className={
-                    cx('form-group mb-2', {'was-validated': submitted || validated})
-                }>
+                <div
+                    data-testid={'deck-form'}
+                    className={
+                        cx('form-group mb-2', {'was-validated': submitted || validated})
+                    }
+                >
                     <label htmlFor="deckName" className="sr-only">Nome do deck</label>
                     <input
                         className="form-control form-control-lg"
